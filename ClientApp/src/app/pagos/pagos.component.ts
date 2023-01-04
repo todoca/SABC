@@ -6,18 +6,25 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './pagos.component.html'
 })
 export class PagosComponent {
-  public pagos: Pago[] = [];
+  public clientes: Cliente[] = [];
+  public pagosList: Pago[] = [];
+  
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Pago[]>(baseUrl + 'pagos').subscribe(result => {
-      this.pagos = result;
+    http.get<Cliente[]>(baseUrl + 'pagos').subscribe(result => {
+      this.clientes = result;
     }, error => console.error(error));
   }
 }
-
-interface Pago {
-  nombre: string;
+interface Cliente {
+  id?: number;
+  nombreCompleto: string;
   cedula: string;
-  fecha: string;
-  monto: number;
+  pin: string;
+  pagos?: Pago[];
 }
+interface Pago {
+  fecha: string,
+  monto:number
+}
+

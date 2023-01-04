@@ -2,23 +2,38 @@
 
 <p>Por favor ingrese un número de cédula para consultar los pagos asociados al cliente.</p>
 
-<p *ngIf="!pagos"><em>Cargando...</em></p>
+<p *ngIf="!clientes"><em>Cargando...</em></p>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="pagos">
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="clientes">
   <thead>
     <tr>
-      <th>Nombre</th>
+      <th>Nombre Completo</th>
       <th>Cédula</th>
-      <th>Fecha</th>
-      <th>Monto</th>
+      <th>PIN</th>
+      <th>Pagos</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let pago of pagos">
-      <td>{{ pago.nombre }}</td>
-      <td>{{ pago.cedula }}</td>
-      <td>{{ pago.fecha }}</td>
-      <td>{{ pago.monto }}</td>
+    <tr *ngFor="let cliente of clientes">
+      <td class="align-middle">{{ cliente.nombreCompleto }}</td>
+      <td class="align-middle">{{ cliente.cedula }}</td>
+      <td class="align-middle">{{ cliente.pin }}</td>
+      <td colspan="4">
+        <table class="table mb-0"  *ngIf="cliente.pagos">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Monto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pago of cliente.pagos">
+              <td>{{ pago.fecha }}</td>
+              <td>{{ pago.monto }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
     </tr>
   </tbody>
 </table>
