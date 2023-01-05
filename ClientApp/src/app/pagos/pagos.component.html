@@ -1,39 +1,33 @@
 <h1 id="tableLabel">Consulta de Pagos</h1>
 
 <p>Por favor ingrese un número de cédula para consultar los pagos asociados al cliente.</p>
+<div>
+  <label for="cedula">Cédula</label>
+  <input id="cedula" type="text" [(ngModel)]="cedulaBuscar" class="mx-4" placeholder="Introduzca Cédula" />
+
+  <button class="btn btn-primary" type="button" (click)="buscarcliente()">Buscar Cliente</button>
+ 
+  Ultima Cédula buscada: {{ultimaCedula}}
+</div>
 
 <p *ngIf="!clientes"><em>Cargando...</em></p>
+<h4 class="my-3">{{mensaje}}</h4>
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="clientes">
   <thead>
     <tr>
       <th>Nombre Completo</th>
       <th>Cédula</th>
-      <th>PIN</th>
-      <th>Pagos</th>
+      <th>Fecha</th>
+      <th>Monto</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let cliente of clientes">
       <td class="align-middle">{{ cliente.nombreCompleto }}</td>
       <td class="align-middle">{{ cliente.cedula }}</td>
-      <td class="align-middle">{{ cliente.pin }}</td>
-      <td colspan="4">
-        <table class="table mb-0"  *ngIf="cliente.pagos">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Monto</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let pago of cliente.pagos">
-              <td>{{ pago.fecha }}</td>
-              <td>{{ pago.monto }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </td>
+      <td class="align-middle">{{ cliente.fecha | date:'shortDate' }}</td>
+      <td class="align-middle">{{ cliente.monto | currency }}</td>
     </tr>
   </tbody>
 </table>
